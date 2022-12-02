@@ -54,17 +54,14 @@ def focal_point(file_name: str):
 
 
 def split_run_into_paragraph(run, next_run, paragraph):
-    run_style = run.style.name
-    words = run.text.rstrip().split(' ')
-    if words == ['']:
-        return
 
+    words = run.text.rstrip().split(' ')
     if next_run is None:
         remove_space_at_end = False
     else:
         remove_space_at_end = False
         punctuation = tuple(i for i in string.punctuation) + (' ',)
-        if next_run.text.startswith(punctuation):
+        if next_run.text.startswith(punctuation) or not run.text.endswith(' '):
             remove_space_at_end = True
 
     if 'graphicData' not in run._r.xml and 'w:br' not in run._element.xml:
@@ -78,7 +75,7 @@ def split_run_into_paragraph(run, next_run, paragraph):
                 (regular_part + ' ', False),
         ):
             new_run = paragraph.add_run(
-                text=text, style=run_style)
+                text=text, style=run.style.name if run.style else '')
             new_run.bold = bold
             new_run.italic = run.italic
             new_run.underline = run.underline

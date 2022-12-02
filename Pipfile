@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 python-docx = "*"
 
-
 [dev-packages]
 
 [requires]
