@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  web:
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    entrypoint: ''
+    command: python /focal-point/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/focal-point
+    ports:
+      - 8002:8000
+    env_file:
+      - ./.env.dev

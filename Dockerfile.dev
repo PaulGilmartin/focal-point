@@ -1,0 +1,11 @@
+FROM python:3.9
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /focal-point
+
+COPY Pipfile Pipfile.lock /focal-point/
+RUN pip install --upgrade pip
+RUN pip install pipenv && pipenv install --system
+COPY . /focal-point/

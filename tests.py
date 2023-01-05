@@ -1,9 +1,10 @@
-from unittest import TestCase
+from django.test import TestCase
 
-from core import focal_point
+from focal_point.focal_point import focal_point
 
 
 class TestFocalPoint(TestCase):
 
-    def test_embolden(self):
-        focal_point('/Users/paulgilmartin/PycharmProjects/focal-point/NHSDoc.docx')
+    def test_focal_point(self):
+        self.client.post()
+        focal_point('/test_files/NHSDoc.docx')

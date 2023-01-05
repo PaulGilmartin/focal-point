@@ -5,8 +5,11 @@ from docx import Document
 from docx.oxml import CT_P, CT_Tbl
 
 
-def focal_point(file_name: str):
-    document = Document(file_name)
+def focal_point(file) -> str:
+    if not file.name.endswith('.docx'):
+        raise ValueError('Only files with extension .docx are accepted')
+
+    document = Document(file.file)
     para_count = 0
     table_count = 0
     parent_elm = document._body._body
@@ -48,13 +51,13 @@ def focal_point(file_name: str):
                     seen_paragraphs=seen_paragraphs,
                 )
 
-    file_name, extension = file_name.split('.')
-    new_file_name = f'{file_name}_edited.{extension}'
-    document.save(new_file_name)
+    file_name, extension = file.name.split('.')
+    edited_file_path = f'{file_name}-focal-point.{extension}'
+    document.save(edited_file_path)
+    return edited_file_path
 
 
 def split_run_into_paragraph(run, next_run, paragraph):
-
     words = run.text.rstrip().split(' ')
     if next_run is None:
         remove_space_at_end = False

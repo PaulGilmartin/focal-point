@@ -4,7 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-python-docx = "*"
+python-docx = "0.8.11"
+django = "4.1.5"
 
 [dev-packages]
 
